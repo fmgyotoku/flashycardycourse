@@ -22,21 +22,30 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider appearance={{ theme: dark }}>
+    <ClerkProvider
+        appearance={{ theme: dark }}
+        signInForceRedirectUrl="/dashboard"
+        signUpForceRedirectUrl="/dashboard"
+        signInFallbackRedirectUrl="/dashboard"
+        signUpFallbackRedirectUrl="/dashboard"
+      >
       <html lang="en" className={`${merriweather.variable} dark h-full antialiased`}>
         <body className="min-h-full flex flex-col">
-          <header className="flex items-center justify-end gap-4 p-4">
-            <Show when="signed-out">
-              <SignInButton mode="modal">
-                <Button className="bg-white text-black hover:bg-gray-200">Sign In</Button>
-              </SignInButton>
-              <SignUpButton mode="modal">
-                <Button variant="secondary">Sign Up</Button>
-              </SignUpButton>
-            </Show>
+          <header className="flex items-center justify-between gap-4 p-4">
+            <span className="font-bold text-lg">Flashy Cardy</span>
+            <div className="flex gap-4">
+              <Show when="signed-out">
+                <SignInButton mode="modal">
+                  <Button>Sign In</Button>
+                </SignInButton>
+                <SignUpButton mode="modal">
+                  <Button variant="secondary">Sign Up</Button>
+                </SignUpButton>
+              </Show>
             <Show when="signed-in">
               <UserButton />
             </Show>
+            </div>
           </header>
           {children}
         </body>
