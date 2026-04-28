@@ -8,6 +8,11 @@ export async function getDeckById(id: number): Promise<Deck | undefined> {
   return result[0];
 }
 
+export async function getDeckWithUserId(id: number): Promise<Deck | undefined> {
+  const result = await db.select().from(decks).where(eq(decks.id, id)).limit(1);
+  return result[0];
+}
+
 export async function getDecksByUserId(userId: string): Promise<
   Array<{
     id: number;
